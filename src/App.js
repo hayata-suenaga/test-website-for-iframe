@@ -35,7 +35,7 @@ function Reports() {
   );
 }
 
-function WorkspaceEditor() {
+function WorkspaceList() {
   const [searchParams] = useSearchParams();
   const param = JSON.parse(searchParams.get("param")) ?? {};
   const { section } = param;
@@ -193,7 +193,7 @@ function App() {
           <Route path="/inbox" element={<Home />} />
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/admin_policies" element={<WorkspaceEditor />} />
+          <Route path="/admin_policies" element={<WorkspaceList />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
