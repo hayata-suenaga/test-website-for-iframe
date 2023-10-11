@@ -5,6 +5,7 @@ import {
   Route,
   Routes,
   useSearchParams,
+  useLocation,
 } from "react-router-dom";
 
 function Home() {
@@ -49,6 +50,65 @@ function WorkspaceList() {
             : "Group Workspaces"
         }`}
       </h2>
+    </div>
+  );
+}
+
+function WorkspaceEditor() {
+  const location = useLocation();
+  const hash = location.hash.slice(1);
+
+  console.log("hash", hash);
+
+  let pageName = "";
+  switch (hash) {
+    case "expenses":
+      pageName = "Expenses";
+      break;
+    case "reports":
+      pageName = "Reports";
+      break;
+    case "connections":
+      pageName = "Connections";
+      break;
+    case "categories":
+      pageName = "Categories";
+      break;
+    case "tags":
+      pageName = "Tags";
+      break;
+    case "tax":
+      pageName = "Tax";
+      break;
+    case "people":
+      pageName = "People";
+      break;
+    case "reimbursement":
+      pageName = "Reimbursements";
+      break;
+    case "travel":
+      pageName = "Travel";
+      break;
+    case "js_policyEditor_perDiem":
+      pageName = "Per Diem";
+      break;
+    case "exportFormats":
+      pageName = "Export Formats";
+      break;
+    case "invoices":
+      pageName = "Invoices";
+      break;
+    case "plan":
+      pageName = "Plan";
+      break;
+    default:
+      pageName = "Overview";
+      break;
+  }
+
+  return (
+    <div>
+      <h2>{`Workspace > ${pageName}`}</h2>
     </div>
   );
 }
@@ -144,7 +204,7 @@ function App() {
               <Link to='/expenses?param={"viewMode":"charts"}'>Insights</Link>
             </li>
             <li>
-              <Link to="/admin_policies">Workspaces</Link>
+              <Link to="/admin_policies">Workspace List</Link>
             </li>
             <ul>
               <li>
@@ -155,6 +215,81 @@ function App() {
               <li>
                 <Link to='/admin_policies?param={"section":"group"}'>
                   Group Workspaces
+                </Link>
+              </li>
+            </ul>
+            <li>
+              <Link to="/policy">Workspace</Link>
+            </li>
+            <ul>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#'>
+                  Overview
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#expenses'>
+                  Expenses
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#reports'>
+                  Reports
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#connections'>
+                  Connections
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#categories'>
+                  Categories
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#tags'>
+                  Tags
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#tax'>
+                  Tax
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#people'>
+                  People
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#reimbursement'>
+                  Reimbursement
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#travel'>
+                  Travel
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#js_policyEditor_perDiem'>
+                  Per Diem
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#exportFormats'>
+                  Export Formats
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#invoices'>
+                  Invoices
+                </Link>
+              </li>
+              <li>
+                <Link to='/policy?param={"policyID":"B2AA3E9F6EDEC492"}#plan'>
+                  Plan
                 </Link>
               </li>
             </ul>
@@ -194,6 +329,7 @@ function App() {
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/admin_policies" element={<WorkspaceList />} />
+          <Route path="/policy" element={<WorkspaceEditor />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
