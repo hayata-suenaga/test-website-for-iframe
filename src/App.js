@@ -35,7 +35,7 @@ function Reports() {
   );
 }
 
-function Settings() {
+function WorkspaceEditor() {
   const [searchParams] = useSearchParams();
   const param = JSON.parse(searchParams.get("param")) ?? {};
   const { section } = param;
@@ -43,10 +43,46 @@ function Settings() {
   return (
     <div>
       <h2>
-        {section === "individual"
-          ? "Individual Workspaces"
-          : "Group Workspaces"}
+        {`Workspaces > ${
+          section === "individual"
+            ? "Individual Workspaces"
+            : "Group Workspaces"
+        }`}
       </h2>
+    </div>
+  );
+}
+
+function Settings() {
+  const [searchParams] = useSearchParams();
+  const param = JSON.parse(searchParams.get("param")) ?? {};
+  const { section } = param;
+
+  let pageName = "";
+
+  switch (section) {
+    case "account":
+      pageName = "Account Details";
+      break;
+    case "preferences":
+      pageName = "Preferences";
+      break;
+    case "expenserules":
+      pageName = "Expense Rules";
+      break;
+    case "creditcards":
+      pageName = "Credit Cards and Transaction Feeds";
+      break;
+    case "payments":
+      pageName = "Payments";
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <div>
+      <h2>{`Account > ${pageName}`}</h2>
     </div>
   );
 }
@@ -122,6 +158,34 @@ function App() {
                 </Link>
               </li>
             </ul>
+            <li>
+              <Link to='settings?param={"section":"account"}'>Accounts</Link>
+            </li>
+            <ul>
+              <li>
+                <Link to='settings?param={"section":"account"}'>
+                  Account Details
+                </Link>
+              </li>
+              <li>
+                <Link to='settings?param={"section":"preferences"}'>
+                  Preferences
+                </Link>
+              </li>
+              <li>
+                <Link to='settings?param={"section":"expenserules"}'>
+                  Expense Rules
+                </Link>
+              </li>
+              <li>
+                <Link to='settings?param={"section":"creditcards"}'>
+                  Credit Cards and Transaction Feeds
+                </Link>
+              </li>
+              <li>
+                <Link to='settings?param={"section":"payments"}'>Payments</Link>
+              </li>
+            </ul>
           </ul>
         </nav>
 
@@ -129,7 +193,8 @@ function App() {
           <Route path="/inbox" element={<Home />} />
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/admin_policies" element={<Settings />} />
+          <Route path="/admin_policies" element={<WorkspaceEditor />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
